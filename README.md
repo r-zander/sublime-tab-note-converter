@@ -72,7 +72,7 @@ That's it. No dependencies, no external tools, no build step.
 
 ## Platform support
 
-Currently **Windows only**. The Rich Text and Slack exports use the Windows clipboard API (`ctypes` → `user32.dll` / `kernel32.dll`) to set multiple clipboard formats simultaneously. A PowerShell fallback exists for Rich Text if ctypes misbehaves.
+Currently, **Windows only**. The Rich Text and Slack exports use the Windows clipboard API (`ctypes` → `user32.dll` / `kernel32.dll`) to set multiple clipboard formats simultaneously. A PowerShell fallback exists for Rich Text if ctypes misbehaves.
 
 macOS and Linux contributions are welcome - the conversion logic is platform-independent, only the clipboard writing needs platform-specific code.
 
@@ -81,11 +81,11 @@ macOS and Linux contributions are welcome - the conversion logic is platform-ind
 
 ## The Slack rabbit hole
 
-This section is for anyone who's ever tried to paste nested lists into Slack and hit a wall. It's also the story of how this plugin went from "quick weekend project" to "reverse-engineering proprietary clipboard formats."
+This section is for anyone who's ever tried to paste fully formatted text (especially nested lists) into Slack and hit a wall. It's also the story of how this plugin went from "quick afternoon project" to "reverse-engineering proprietary clipboard formats."
 
 ### The problem
 
-Slack flattens nested lists on paste. Always. Every rich text editor, every HTML clipboard format, every markdown trick - Slack turns your carefully indented outline into a flat list of bullets. The internet consensus: *it's not possible.*
+Slack flattens or ignores nested lists on paste. Always. Every rich text editor, every HTML clipboard format, every Markdown trick - Slack turns your carefully indented outline into a flat list of bullets. The internet consensus: *it's not possible.*
 
 But there's one exception: **copying nested lists from within Slack itself preserves nesting.** If Slack can do it to itself, we should be able to figure out what it's doing.
 
@@ -95,7 +95,7 @@ Step 1 was writing a clipboard inspector script (included in this repo as `tools
 
 The obvious suspect was `CF_HTML` - the standard Windows clipboard format for rich text. Our HTML was structurally correct (proper nested `<ul><li>` elements) and even used Slack's own inline CSS styles. But Slack ignored it completely.
 
-Then we noticed something in the clipboard dump that most people overlook:
+Then we noticed something in the clipboard dump that we first dismissed as noise:
 
 ```
 --- Chromium Web Custom MIME Data Format (id=49834) ---
@@ -114,7 +114,7 @@ We wrote a decoder and found that Slack registers a custom MIME type: `slack/htm
 The `slack/html` content is completely different from the `CF_HTML` content. Where `CF_HTML` uses inline CSS styles, `slack/html` uses Slack's internal CSS classes and `data-stringify-*` attributes:
 
 ```html
-<!-- CF_HTML (what we tried first - Slack ignores this for nesting) -->
+<!-- CF_HTML (what we tried first - Slack ignores this for pasting) -->
 <ul style="margin: 4px 0 4px 24px; padding: 0; list-style-position: outside">
   <li style="margin: 2px 0; padding: 0; color: #1d1c1d">item</li>
 </ul>
@@ -134,7 +134,7 @@ Key differences:
 - `<b data-stringify-type="bold">` instead of `<b style="font-weight: 700">`
 - `<meta charset="utf-8">` prefix required
 - Everything minified - no whitespace between tags
-- Double quotes in content are NOT HTML-escaped
+- Special symbols in content are NOT HTML-escaped
 
 ### The Pickle format
 
