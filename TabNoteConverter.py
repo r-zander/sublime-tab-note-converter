@@ -583,7 +583,7 @@ def _normalize_output(text):
 # Commands
 # ---------------------------------------------------------------------------
 
-class Tab Note ConverterMarkdownCommand(sublime_plugin.TextCommand):
+class ConvertTabNoteToMarkdownCommand(sublime_plugin.TextCommand):
     """Convert raw notes to Markdown and copy to clipboard."""
 
     def run(self, edit):
@@ -596,7 +596,7 @@ class Tab Note ConverterMarkdownCommand(sublime_plugin.TextCommand):
         return self.view.size() > 0
 
 
-class Tab Note ConverterSlackCommand(sublime_plugin.TextCommand):
+class ConvertTabNoteToSlackMessageCommand(sublime_plugin.TextCommand):
     """Convert raw notes to Slack-compatible HTML and copy to clipboard.
 
     Sets three clipboard formats:
@@ -623,7 +623,7 @@ class Tab Note ConverterSlackCommand(sublime_plugin.TextCommand):
         return self.view.size() > 0
 
 
-class Tab Note ConverterRichtextCommand(sublime_plugin.TextCommand):
+class ConvertTabNoteToRichtextCommand(sublime_plugin.TextCommand):
     """Convert raw notes to Rich Text (HTML) and copy to clipboard."""
 
     def run(self, edit):
