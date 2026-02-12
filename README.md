@@ -176,9 +176,4 @@ These are useful for debugging clipboard issues or reverse-engineering other Ele
 
 ## License
 
-MIT
-
-
-## Credits
-
-Built in a wild late-night pair-programming session between a human and an AI, fueled by Big Game Dev Energy and the refusal to accept "not possible" as an answer.
+GPL-3.0
