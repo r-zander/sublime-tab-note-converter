@@ -1,0 +1,14 @@
+[
+    {
+        "caption": "Convert tab note to: Markdown",
+        "command": "convert_tab_note_to_markdown"
+    },
+    {
+        "caption": "Convert tab note to: Rich Text",
+        "command": "convert_tab_note_to_richtext"
+    },
+    {
+        "caption": "Convert tab note to: Slack Message",
+        "command": "convert_tab_note_to_slack_message"
+    }
+]
