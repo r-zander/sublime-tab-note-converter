@@ -30,7 +30,7 @@ Legendary Weapons UI Review
 		Not so much a ranking, but a story-telling device
 ```
 
-Then right-click → **Convert tab note to** → pick your target:
+then right-click → **Convert tab note to** → pick your target:
 
 | Format            | What you get | Best for |
 |-------------------|-------------|----------|
@@ -38,6 +38,34 @@ Then right-click → **Convert tab note to** → pick your target:
 | **Rich Text**     | HTML on clipboard via `CF_HTML` | Confluence Live Docs, Word, Google Docs |
 | **Slack Message** | Slack's proprietary `data-stringify` HTML via Chromium MIME | Slack - with fully nested lists |
 
+to get either
+
+**Markdown**
+
+```
+# Legendary Weapons UI Review
+
+**Creation UI**
+* move "forge" as 4th Trait
+  * Jon: Players should be able to see the create UI
+  * 4th trait is more powerful, but still a trait
+    * not an E-spell
+    * probably also not the W-spell
+* show requirements in Details UI
+  * Legendary Rating of X
+
+**Encyclopedia**
+* Not so much a ranking, but a story-telling device
+```
+
+or **Rich Text**
+
+<img width="400" height="353" alt="image" src="https://github.com/user-attachments/assets/68e42f73-0da7-44a8-86ac-012c78e483f4" />
+
+
+or **Slack Message**
+
+<img width="400" height="263" alt="image" src="https://github.com/user-attachments/assets/80a51094-7050-4709-91ca-5c6da8572b5c" />
 
 ## Input format
 
